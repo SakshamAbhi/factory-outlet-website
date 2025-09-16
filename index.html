@@ -1,29 +1,3 @@
-        .preview-remove:hover {
-            background: red;
-            transform: scale(1.1);
-        }
-
-        /* Image Modal */
-        .image-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -274,56 +248,266 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
 
-        .product-card {
-            background: var(--light);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
+        .product-tile {
             position: relative;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        .product-tile:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
         }
 
         .product-image {
-            height: 250px;
-            background: var(--gradient);
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .product-tile:hover .product-image img {
+            transform: scale(1.1);
+            filter: brightness(0.7);
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95));
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(30px);
+        }
+
+        .product-tile:hover .product-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-content {
+            text-align: center;
             color: white;
-            font-size: 4rem;
-            font-weight: 900;
+            padding: 2rem;
+            max-width: 100%;
         }
 
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-info h3 {
-            font-size: 1.3rem;
+        .product-content h3 {
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.1s;
         }
 
-        .price {
-            font-size: 1.5rem;
-            font-weight: 800;
+        .product-tile:hover .product-content h3 {
+            transform: translateY(0);
+        }
+
+        .product-content > p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.2s;
+        }
+
+        .product-tile:hover .product-content > p {
+            transform: translateY(0);
+        }
+
+        .product-details {
+            margin-bottom: 1.5rem;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.3s;
+        }
+
+        .product-tile:hover .product-details {
+            transform: translateY(0);
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .detail-label {
+            font-weight: 600;
+            opacity: 0.9;
+            min-width: 90px;
+        }
+
+        .detail-item span:last-child {
+            text-align: right;
+            opacity: 0.8;
+            flex: 1;
+            margin-left: 1rem;
+        }
+
+        .view-product-btn {
+            background: white;
             color: var(--primary);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.4s;
+        }
+
+        .product-tile:hover .view-product-btn {
+            transform: translateY(0);
+        }
+
+        .view-product-btn:hover {
+            background: var(--accent);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,255,255,0.3);
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: var(--light);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .upload-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .upload-area {
+            border: 3px dashed var(--primary);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        .upload-area:hover {
+            border-color: var(--dark);
+            background: #fafafa;
+        }
+
+        .upload-area.dragover {
+            border-color: var(--accent);
+            background: #fff9e6;
+            transform: scale(1.02);
+        }
+
+        .upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
 
-        .original-price {
-            text-decoration: line-through;
-            color: #888;
-            font-size: 1rem;
-            margin-left: 0.5rem;
+        .upload-area p {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .upload-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .uploaded-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .preview-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,0,0,0.8);
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .preview-remove:hover {
+            background: red;
+            transform: scale(1.1);
         }
 
         /* About Section */
@@ -376,10 +560,13 @@
         }
 
         .contact-content {
-            display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
         }
+        
+        /* .contact-content {
+            padding: 2rem;
+        } */
 
         .contact-form {
             background: white;
@@ -431,6 +618,82 @@
         .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Enhanced Form Styles */
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.75rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        /* .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            cursor: pointer;
+            margin-bottom: 0 !important;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin: 0;
+            width: auto;
+            padding: 0;
+        } */
+
+        .form-status {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        .form-status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 0.5rem;
         }
 
         .contact-info {
@@ -583,9 +846,9 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Premium Quality<br>Factory Prices</h1>
-            <p>Skip the middleman and save up to 70% on premium products directly from the manufacturer</p>
-            <a href="#products" class="cta-button">Shop Now</a>
+            <h1>Premium Quality<br>Product Showcase</h1>
+            <p>Discover our extensive collection of premium products manufactured with precision and care</p>
+            <a href="#products" class="cta-button">View Products</a>
         </div>
     </section>
 
@@ -593,39 +856,39 @@
     <section class="features scroll-animate">
         <div class="container">
             <div class="section-title">
-                <h2>Why Choose Factory Direct?</h2>
-                <p>Experience the difference of buying directly from the source</p>
+                <h2>Why Choose Our Products?</h2>
+                <p>Experience the difference of premium manufacturing and quality craftsmanship</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3>Unbeatable Prices</h3>
-                    <p>Save up to 70% compared to retail stores by eliminating middleman markups</p>
+                    <div class="feature-icon">🏆</div>
+                    <h3>Premium Quality</h3>
+                    <p>Exceptional craftsmanship with attention to every detail in our manufacturing process</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🏭</div>
-                    <h3>Direct from Factory</h3>
-                    <p>Authentic products straight from our manufacturing facilities</p>
+                    <h3>Advanced Manufacturing</h3>
+                    <p>State-of-the-art facilities using the latest technology and production methods</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Premium Quality</h3>
-                    <p>Same high-quality products sold in premium retail stores</p>
+                    <div class="feature-icon">✨</div>
+                    <h3>Innovative Design</h3>
+                    <p>Cutting-edge designs that combine functionality with aesthetic appeal</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🚚</div>
-                    <h3>Fast Shipping</h3>
-                    <p>Quick delivery directly from our warehouse to your door</p>
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Standards</h3>
+                    <p>Products manufactured to meet international quality and safety standards</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🛡️</div>
-                    <h3>Warranty Included</h3>
-                    <p>Full manufacturer warranty on all products</p>
+                    <h3>Quality Assurance</h3>
+                    <p>Rigorous testing and quality control at every stage of production</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📞</div>
-                    <h3>Direct Support</h3>
-                    <p>Get help directly from our manufacturing team</p>
+                    <div class="feature-icon">🔬</div>
+                    <h3>R&D Excellence</h3>
+                    <p>Continuous research and development to stay ahead of industry trends</p>
                 </div>
             </div>
         </div>
@@ -636,39 +899,141 @@
         <div class="container">
             <div class="section-title">
                 <h2>Featured Products</h2>
-                <p>Discover our most popular factory-direct items</p>
+                <p>Explore our premium manufacturing capabilities across different categories</p>
             </div>
             <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">👕</div>
-                    <div class="product-info">
-                        <h3>Premium Apparel</h3>
-                        <div class="price">$29.99 <span class="original-price">$89.99</span></div>
-                        <p>High-quality clothing direct from our textile factory</p>
+                <div class="product-tile" data-category="apparel">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23667eea'/%3E%3Cpath d='M120 120h160v40H120zm0 60h160v40H120zm0 60h120v40H120z' fill='white' opacity='0.3'/%3E%3Ctext x='200' y='350' text-anchor='middle' fill='white' font-size='24' font-weight='bold'%3EPremium Apparel%3C/text%3E%3C/svg%3E" alt="Premium Apparel">
+                    </div>
+                    <div class="product-overlay">
+                        <div class="product-content">
+                            <h3>Premium Apparel Collection</h3>
+                            <p>High-quality textiles manufactured with precision and care</p>
+                            <div class="product-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Materials:</span>
+                                    <span>100% Organic Cotton, Premium Blends</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Manufacturing:</span>
+                                    <span>Advanced Textile Technology</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Certifications:</span>
+                                    <span>GOTS, OEKO-TEX Standard</span>
+                                </div>
+                            </div>
+                            <button class="view-product-btn">View Collection</button>
+                        </div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-image">📱</div>
-                    <div class="product-info">
-                        <h3>Electronics</h3>
-                        <div class="price">$199.99 <span class="original-price">$399.99</span></div>
-                        <p>Latest gadgets and electronics at factory prices</p>
+
+                <div class="product-tile" data-category="electronics">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23764ba2'/%3E%3Crect x='100' y='100' width='200' height='120' rx='10' fill='white' opacity='0.3'/%3E%3Ccircle cx='150' cy='280' r='20' fill='white' opacity='0.3'/%3E%3Ccircle cx='250' cy='280' r='20' fill='white' opacity='0.3'/%3E%3Ctext x='200' y='350' text-anchor='middle' fill='white' font-size='20' font-weight='bold'%3ESmart Electronics%3C/text%3E%3C/svg%3E" alt="Smart Electronics">
+                    </div>
+                    <div class="product-overlay">
+                        <div class="product-content">
+                            <h3>Smart Electronics</h3>
+                            <p>Cutting-edge electronic devices with innovative features</p>
+                            <div class="product-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Technology:</span>
+                                    <span>IoT, AI-Powered, Smart Connectivity</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Features:</span>
+                                    <span>Voice Control, App Integration</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Warranty:</span>
+                                    <span>2 Years International Warranty</span>
+                                </div>
+                            </div>
+                            <button class="view-product-btn">View Collection</button>
+                        </div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-image">🏠</div>
-                    <div class="product-info">
-                        <h3>Home Goods</h3>
-                        <div class="price">$49.99 <span class="original-price">$129.99</span></div>
-                        <p>Stylish home decor and furniture</p>
+
+                <div class="product-tile" data-category="home">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23ff6b35'/%3E%3Cpath d='M80 120l120-40 120 40v160H80z' fill='white' opacity='0.3'/%3E%3Crect x='150' y='180' width='40' height='60' fill='white' opacity='0.3'/%3E%3Crect x='220' y='160' width='30' height='30' fill='white' opacity='0.3'/%3E%3Ctext x='200' y='350' text-anchor='middle' fill='white' font-size='22' font-weight='bold'%3EHome Essentials%3C/text%3E%3C/svg%3E" alt="Home Essentials">
+                    </div>
+                    <div class="product-overlay">
+                        <div class="product-content">
+                            <h3>Home Essentials</h3>
+                            <p>Stylish and functional home products for modern living</p>
+                            <div class="product-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Design:</span>
+                                    <span>Contemporary, Minimalist, Ergonomic</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Materials:</span>
+                                    <span>Sustainable Wood, Recycled Plastics</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Durability:</span>
+                                    <span>10+ Years Product Lifespan</span>
+                                </div>
+                            </div>
+                            <button class="view-product-btn">View Collection</button>
+                        </div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-image">⌚</div>
-                    <div class="product-info">
-                        <h3>Accessories</h3>
-                        <div class="price">$79.99 <span class="original-price">$199.99</span></div>
-                        <p>Watches, jewelry, and fashion accessories</p>
+
+                <div class="product-tile" data-category="accessories">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23ffd23f'/%3E%3Ccircle cx='200' cy='160' r='60' fill='%23333' opacity='0.3'/%3E%3Crect x='140' y='240' width='120' height='20' rx='10' fill='%23333' opacity='0.3'/%3E%3Cpath d='M160 280l40 20 40-20v40l-40 20-40-20z' fill='%23333' opacity='0.3'/%3E%3Ctext x='200' y='370' text-anchor='middle' fill='%23333' font-size='20' font-weight='bold'%3ELuxury Accessories%3C/text%3E%3C/svg%3E" alt="Luxury Accessories">
+                    </div>
+                    <div class="product-overlay">
+                        <div class="product-content">
+                            <h3>Luxury Accessories</h3>
+                            <p>Premium fashion accessories with exquisite craftsmanship</p>
+                            <div class="product-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Materials:</span>
+                                    <span>Genuine Leather, Precious Metals</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Craftsmanship:</span>
+                                    <span>Hand-finished, Artisan Quality</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Collection:</span>
+                                    <span>Watches, Jewelry, Bags, Belts</span>
+                                </div>
+                            </div>
+                            <button class="view-product-btn">View Collection</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-tile" data-category="industrial">
+                    <div class="product-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23636e72'/%3E%3Crect x='80' y='120' width='240' height='80' rx='5' fill='white' opacity='0.3'/%3E%3Crect x='120' y='220' width='160' height='40' rx='5' fill='white' opacity='0.3'/%3E%3Ccircle cx='140' cy='300' r='15' fill='white' opacity='0.3'/%3E%3Ccircle cx='200' cy='300' r='15' fill='white' opacity='0.3'/%3E%3Ccircle cx='260' cy='300' r='15' fill='white' opacity='0.3'/%3E%3Ctext x='200' y='360' text-anchor='middle' fill='white' font-size='18' font-weight='bold'%3EIndustrial Equipment%3C/text%3E%3C/svg%3E" alt="Industrial Equipment">
+                    </div>
+                    <div class="product-overlay">
+                        <div class="product-content">
+                            <h3>Industrial Equipment</h3>
+                            <p>Heavy-duty industrial solutions for manufacturing needs</p>
+                            <div class="product-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Applications:</span>
+                                    <span>Manufacturing, Processing, Assembly</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Standards:</span>
+                                    <span>ISO 9001, CE Certified</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Support:</span>
+                                    <span>24/7 Technical Support</span>
+                                </div>
+                            </div>
+                            <button class="view-product-btn">View Collection</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -694,11 +1059,11 @@
                         </div>
                         <div class="stat">
                             <span class="stat-number">500+</span>
-                            Products
+                            Products Manufactured
                         </div>
                         <div class="stat">
-                            <span class="stat-number">70%</span>
-                            Average Savings
+                            <span class="stat-number">50+</span>
+                            Countries Served
                         </div>
                     </div>
                 </div>
@@ -718,21 +1083,56 @@
             </div>
             <div class="contact-content">
                 <div class="contact-form">
-                    <form>
+                    <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">Full Name *</label>
                             <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email">Email Address *</label>
                             <input type="email" id="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
                         </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject...</option>
+                                <option value="General Inquiry">General Inquiry</option>
+                                <option value="Product Information">Product Information</option>
+                                <option value="Manufacturing Partnership">Manufacturing Partnership</option>
+                                <option value="Technical Support">Technical Support</option>
+                                <option value="Quality Control">Quality Control</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Please provide details about your inquiry..."></textarea>
+                        </div>
+                        <!-- <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="newsletter" value="yes">
+                                <span class="checkmark"></span>
+                                Subscribe to our newsletter for updates and new product announcements
+                            </label>
+                        </div> -->
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-loading" style="display: none;">
+                                <div class="loading-spinner"></div>
+                                Sending...
+                            </span>
+                        </button>
+                        <div class="form-status" id="formStatus"></div>
                     </form>
+                </div>    </form>
                 </div>
                 <div class="contact-info">
                     <div class="contact-item">
@@ -773,18 +1173,18 @@
                     <a href="#contact">Contact</a>
                 </div>
                 <div class="footer-section">
-                    <h3>Categories</h3>
-                    <a href="#">Apparel</a>
-                    <a href="#">Electronics</a>
-                    <a href="#">Home Goods</a>
-                    <a href="#">Accessories</a>
+                    <h3>Products</h3>
+                    <a href="#products">All Products</a>
+                    <a href="#products">Apparel</a>
+                    <a href="#products">Electronics</a>
+                    <a href="#products">Home Goods</a>
+                    <a href="#products">Accessories</a>
                 </div>
                 <div class="footer-section">
-                    <h3>Support</h3>
-                    <a href="#">FAQ</a>
-                    <a href="#">Shipping</a>
-                    <a href="#">Returns</a>
-                    <a href="#">Warranty</a>
+                    <h3>Company</h3>
+                    <a href="#about">About Us</a>
+                    <a href="#products">Manufacturing</a>
+                    <a href="#contact">Contact</a>
                 </div>
                 <div class="footer-section">
                     <h3>Connect</h3>
@@ -795,7 +1195,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Factory Direct Outlet. All rights reserved.</p>
+                <p>&copy; 2025 Factory Direct Manufacturing. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -893,6 +1293,110 @@
         }, { threshold: 0.5 });
 
         statsObserver.observe(aboutSection);
+
+        // Enhanced Contact Form with Email Integration
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+        const submitBtn = contactForm.querySelector('.submit-btn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline-flex';
+            submitBtn.disabled = true;
+            formStatus.style.display = 'none';
+
+            // Get form data
+            const formData = new FormData(contactForm);
+            
+            try {
+                // For demonstration - replace with your actual Formspree endpoint
+                // You can also use EmailJS or other email services
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    showStatus('Thank you! Your message has been sent successfully. We\'ll get back to you soon.', 'success');
+                    contactForm.reset();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                // Fallback email method using mailto (opens user's email client)
+                const formData = new FormData(contactForm);
+                const emailBody = `
+Name: ${formData.get('name')}
+Email: ${formData.get('email')}
+Phone: ${formData.get('phone') || 'Not provided'}
+Company: ${formData.get('company') || 'Not provided'}
+Subject: ${formData.get('subject')}
+
+Message:
+${formData.get('message')}
+
+Newsletter Subscription: ${formData.get('newsletter') === 'yes' ? 'Yes' : 'No'}
+                `.trim();
+
+                const mailtoLink = `mailto:your-email@company.com?subject=Contact Form: ${formData.get('subject')}&body=${encodeURIComponent(emailBody)}`;
+                window.location.href = mailtoLink;
+                
+                showStatus('Your email client will open with the message pre-filled. Please send the email to complete your inquiry.', 'success');
+                contactForm.reset();
+            } finally {
+                // Reset button state
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        });
+
+        function showStatus(message, type) {
+            formStatus.textContent = message;
+            formStatus.className = `form-status ${type}`;
+            formStatus.style.display = 'block';
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                formStatus.style.display = 'none';
+            }, 5000);
+        }
+
+        // Product tile interactions
+        const productTiles = document.querySelectorAll('.product-tile');
+        
+        productTiles.forEach(tile => {
+            tile.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                const title = this.querySelector('h3').textContent;
+                
+                // Create a simple modal or alert for demonstration
+                alert(`Viewing ${title}\nCategory: ${category}\n\nThis would typically open a detailed product page or gallery.`);
+            });
+        });
+
+        // Smooth scroll enhancement for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
